@@ -1,10 +1,10 @@
 {
   "name": "airline-system",
   "version": "1.0.0",
-  "description": "",
+  "description": "> A control system for an Airline (Royal Jordanian Airlines) to keep tracking each flight status by contacting the pilot of that flight who in turn will inform the manager and the system when a flight took-off and arrived.",
   "main": "events.js",
   "scripts": {
-    "start": "node system.js",
+    "start": "node ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +23,8 @@
     "date-fns": "^2.29.3",
     "faker": "^6.6.6",
     "fs": "^0.0.1-security",
+    "socket.io": "^4.5.3",
+    "socket.io-client": "^4.5.3",
     "uuid": "^9.0.0"
   }
 }

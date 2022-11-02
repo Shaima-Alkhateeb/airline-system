@@ -1,29 +1,28 @@
 'use strict';
 
-const events = require('./events.js');
+require('dotenv').config();
+
+const io = require('socket.io-client')
+const socket = io.connect(`http://localhost:${process.env.PORT}/airline`)
+
 const info = require('./manager.js')
 
-require('./manager.js');
-require('./system.js');
+// require('./manager.js');
+// require('./system.js');
 
-events.on('new-flight', details => {
-  //Wait 4 second
+socket.on('new-flight', () => {
   setInterval(() => {
-    //Log the status of the flight to the console with its ID.
-    console.log(`flight with ID ${info.flightID} took_off `);
-
-    //Emit 'took-off' event with the flight details to be the payload.
-    events.emit('took_off', details);
+    socket.on('took_off', () => {
+      console.log(`Pilot: flight with ID ${info.flightID} took_off `);
+      socket.emit('took_off', took_off)
+    })
   }, 4000);
 
-  //Wait 3 seconds
   setInterval(() => {
-    //Log the status of the flight to the console with its ID.
-    console.log(`flight with ID ${info.flightID} has arrived`);
-
-    //Emit 'Arrived' event with the flight details to be the payload.
-    events.emit('arrived', details);
+    socket.on('arrived', info => {
+      socket.emit('arrived', arrived)
+      console.log(`Pilot: flight with ID ${info.flightID} has arrived`);
+    })
   }, 7000);
+  
 });
-
-module.exports = events;

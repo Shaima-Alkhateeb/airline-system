@@ -1,10 +1,11 @@
 'use strict';
 
-const events = require('./events.js');
+require('dotenv').config();
 
-// const faker = require('faker')
+const io = require('socket.io-client')
+const socket = io.connect(`http://localhost:${process.env.PORT}`)
+
 const { faker } = require('@faker-js/faker');
-const uuid = require('uuid').v4;
 
 // Details
 let info = {
@@ -15,19 +16,16 @@ let info = {
 };
 // console.log(info)
 
-// Trigger a 'new-flight' event every 10 seconds:
 setInterval(() => {
-    // Log a statement to the console informing that a new flight with its ID has been scheduled.
-    console.log(`new-flight with ID: ${info.flightID} have been scheduled`);
+  socket.emit('new-flight', info); // send from clint to srtver use => socket.emit
+  socket.emit('took_off', info);
+  socket.emit('arrived', info);
 
-    // Emit a 'new-flight' event with the flight details to be the payload.
-    events.emit('new-flight', info);
+  console.log(`Manager: new-flight with ID: ${info.flightID} have been scheduled`);
+  console.log(`Manager: Were greatly thankful for the amazing flight, ${info.pilot} ^_^`);
+
+
 }, 10000);
 
-// Keep the manager alerted when a flight has arrived:
-// events.on('arrived', details => {
-//     // Log a message of appreciation to the pilot with his name to the console.
-//     console.log(`Thank you ${details.pilot} for flying with us!`);
-// })
 
 module.exports = info;
