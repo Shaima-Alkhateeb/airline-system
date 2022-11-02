@@ -3,7 +3,7 @@
 require('dotenv').config();
 
 const io = require('socket.io-client')
-const socket = io.connect(`http://localhost:${process.env.PORT}`)
+const socket = io(`http://localhost:${process.env.PORT}`)
 
 const { faker } = require('@faker-js/faker');
 
@@ -23,8 +23,6 @@ setInterval(() => {
 
   console.log(`Manager: new-flight with ID: ${info.flightID} have been scheduled`);
   console.log(`Manager: Were greatly thankful for the amazing flight, ${info.pilot} ^_^`);
-
-
 }, 10000);
 
 
